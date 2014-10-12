@@ -58,19 +58,6 @@ class Controller extends BaseController
         return array_unique($locales);
     }
 
-    public function postAdd($group)
-    {
-        $keys = explode("\n", Input::get('keys'));
-
-        foreach($keys as $key){
-            $key = trim($key);
-            if($group && $key){
-                $this->manager->missingKey('*', $group, $key);
-            }
-        }
-        return Redirect::back();
-    }
-
     public function postEdit($group)
     {
         if(!in_array($group, $this->manager->getConfig('exclude_groups'))) {
@@ -96,27 +83,5 @@ class Controller extends BaseController
             Translation::where('group', $group)->where('key', $key)->delete();
             return array('status' => 'ok');
         }
-    }
-
-    public function postImport()
-    {
-        $replace = Input::get('replace', false);
-        $counter = $this->manager->importTranslations($replace);
-
-        return Response::json(array('status' => 'ok', 'counter' => $counter));
-    }
-    
-    public function postFind()
-    {
-        $numFound = $this->manager->findTranslations();
-
-        return Response::json(array('status' => 'ok', 'counter' => (int) $numFound));
-    }
-
-    public function postPublish($group)
-    {
-        $this->manager->exportTranslations($group);
-
-        return Response::json(array('status' => 'ok'));
     }
 }
