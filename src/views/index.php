@@ -108,7 +108,7 @@
                 <?php endforeach; ?>
                 <?php if($deleteEnabled): ?>
                     <td>
-                        <a href="<?= action('Barryvdh\TranslationManager\Controller@postDelete', [$group, $key]) ?>" class="delete-key" data-method="POST" data-remote="true" data-confirm="Are you sure you want to delete the translations for '<?= $key ?>?"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a href="<?= action('Barryvdh\TranslationManager\Controller@postDelete', array($group, $key)) ?>" class="delete-key" data-method="POST" data-remote="true" data-confirm="Are you sure you want to delete the translations for '<?= $key ?>?"><span class="glyphicon glyphicon-trash"></span></a>
                     </td>
                 <?php endif; ?>
             </tr>
